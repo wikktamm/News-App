@@ -1,9 +1,10 @@
 package com.example.newsapp.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.data.models.Article
 import com.example.newsapp.data.models.NewsResponse
 import com.example.newsapp.repositories.ArticleRepository
@@ -17,9 +18,6 @@ class NewsViewModel(var repository: ArticleRepository) : ViewModel() {
 
     var searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var searchNewsPage = 1
-
-    var savedNews : LiveData<List<Article>> = MutableLiveData()
-    var savedNewsPage = 1
 
     init {
         getBreakingNews("us")
