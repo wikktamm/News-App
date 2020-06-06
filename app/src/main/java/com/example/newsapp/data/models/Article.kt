@@ -9,11 +9,11 @@ data class Article(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
     val source: Source,
-    val author: String,
+    val author: String?,
     val title: String,
     val description: String,
     val url: String,
-    val urlToImage: String,
+    val urlToImage: String?,
     val publishedAt: String,
-    val content: String
+    val content: String?
 ) : Serializable

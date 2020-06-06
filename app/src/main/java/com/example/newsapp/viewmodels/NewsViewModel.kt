@@ -1,8 +1,10 @@
 package com.example.newsapp.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.data.models.Article
 import com.example.newsapp.data.models.NewsResponse
 import com.example.newsapp.repositories.ArticleRepository
 import com.example.newsapp.utils.Resource
@@ -16,8 +18,10 @@ class NewsViewModel(var repository: ArticleRepository) : ViewModel() {
     var searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var searchNewsPage = 1
 
+    var savedNews : LiveData<List<Article>> = MutableLiveData()
+    var savedNewsPage = 1
 
-    init{
+    init {
         getBreakingNews("us")
     }
 
@@ -28,7 +32,8 @@ class NewsViewModel(var repository: ArticleRepository) : ViewModel() {
             breakingNews.postValue(handleGetBreakingNews(response))
         }
     }
-    fun getSearchNews(stringQuery:String, countryCode: String = "us") {
+
+    fun getSearchNews(stringQuery: String, countryCode: String = "us") {
         viewModelScope.launch {
             searchNews.postValue(Resource.Loading())
             val response = repository.searchNews(stringQuery, countryCode, searchNewsPage)
@@ -45,6 +50,7 @@ class NewsViewModel(var repository: ArticleRepository) : ViewModel() {
         //todo?
         return Resource.Error(response.body(), response.message())
     }
+
     private fun handleSearchNews(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
@@ -54,4 +60,11 @@ class NewsViewModel(var repository: ArticleRepository) : ViewModel() {
         //todo?
         return Resource.Error(response.body(), response.message())
     }
+
+    fun saveArticle(article: Article){
+        viewModelScope.launch {
+            repository.saveArticle(article)
+        }
+    }
+    fun getSavedArticles() = repository.getSavedArticles()
 }

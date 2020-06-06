@@ -3,6 +3,7 @@ package com.example.newsapp.ui.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
@@ -20,6 +21,9 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as NewsActivity).viewModel
         setRecyclerView()
+        viewModel.getSavedArticles().observe(viewLifecycleOwner, Observer {
+            savedAdapter.differ.submitList(it)
+        })
     }
 
     private fun setRecyclerView() {

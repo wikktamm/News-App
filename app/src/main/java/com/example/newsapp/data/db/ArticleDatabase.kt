@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.newsapp.data.models.Article
 
-@Database(entities = [Article::class], version = 1)
+@Database(entities = [Article::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase() {
     abstract fun getArticleDao(): ArticleDao
@@ -26,6 +26,7 @@ abstract class ArticleDatabase : RoomDatabase() {
                 context.applicationContext,
                 ArticleDatabase::class.java,
                 "articles.db"
-            ).build()
+            ).fallbackToDestructiveMigration()
+                .build()
     }
 }
