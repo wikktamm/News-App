@@ -12,7 +12,7 @@ class RetrofitInstance {
             Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(client).build()
         }
 
-        private val api by lazy{
+        val api by lazy{
             retrofit.create(NewsApi::class.java)
         }
     }
