@@ -5,5 +5,6 @@ class Constants {
         const val API_KEY = "ca2742e6f23849e9ba25693d2e976514"
         const val BASE_URL = "http://newsapi.org"
         const val KEY_ARTICLE = "article"
+        const val PAGE_SIZE_QUERY = 20
     }
 }
