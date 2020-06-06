@@ -21,7 +21,7 @@ class NewsViewModel(var repository: ArticleRepository) : ViewModel() {
         getBreakingNews("us")
     }
 
-    fun getBreakingNews(countryCode: String) {
+    private fun getBreakingNews(countryCode: String) {
         viewModelScope.launch {
             breakingNews.postValue(Resource.Loading())
             val response = repository.getBreakingNews(countryCode, breakingNewsPage)
