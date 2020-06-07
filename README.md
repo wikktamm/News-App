@@ -5,3 +5,4 @@ NewsApp displays latest news from newsapi.org, enables user to save articles in 
 - Retfrofit
 - Room
 - RecyclerView with DiffUtil
+- BottomNavigationView
